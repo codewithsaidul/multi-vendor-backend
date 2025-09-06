@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import app from "./app";
 import { envVars } from "./app/config/env";
 import { seedAdmin } from "./app/utils/seedAdmin";
+import { seedManager } from "./app/utils/seedManager";
+import { seedUser } from "./app/utils/seedUser";
 
 
 
@@ -23,6 +25,8 @@ const startServer = async () => {
 (async () => {
   await startServer();
   await seedAdmin();
+  await seedManager();
+  await seedUser();
 })();
 
 process.on("SIGTERM", () => {

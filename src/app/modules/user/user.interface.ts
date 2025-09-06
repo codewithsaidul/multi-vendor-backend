@@ -10,5 +10,5 @@ export interface IUser {
   email: string;
   password: string;
   role: UserRole;
-  vendorId?: Types.ObjectId;
+  scopeId?: Types.ObjectId;
 }

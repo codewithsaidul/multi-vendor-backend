@@ -6,7 +6,7 @@ const userSchema = new Schema<IUser>(
     email: { type: String, required: true, unique: true, lowercase: true },
     password: { type: String, required: true },
     role: { type: String, enum: Object.values(UserRole), default: UserRole.USER },
-    vendorId: { type: Schema.Types.ObjectId, ref: "Vendor" },
+    scopeId: { type: Schema.Types.ObjectId, ref: "Vendor" },
   },
   { timestamps: true, versionKey: false }
 );
