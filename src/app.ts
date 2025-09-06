@@ -1,6 +1,7 @@
 import cors from "cors";
 import express, { type Application, type Request, type Response } from "express";
 import cookieParser from "cookie-parser"
+import { router } from "./app/routes/index.route";
 
 
 const app: Application = express();
@@ -13,6 +14,8 @@ app.use(cors());
 
 
 
+
+app.use("/api/v1", router)
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json("Welcome to Multi Vendor Backend");
 });
