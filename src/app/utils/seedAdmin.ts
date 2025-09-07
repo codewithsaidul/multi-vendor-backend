@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { envVars } from "../config/env";
 import bcrypt from "bcrypt";
 import User from "../modules/user/user.modal";

@@ -28,11 +28,9 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
   }
 
   return {
-    user: {
       id: isUserExist._id,
       role: isUserExist.role,
       scopeId: isUserExist.scopeId
-    },
   };
 };
 

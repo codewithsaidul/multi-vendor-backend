@@ -1,4 +1,4 @@
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { IVendor } from './vendor.interface';
 
 
@@ -13,13 +13,13 @@ const vendorSchema = new Schema<IVendor>(
     },
     status: {
       type: String,
-      enum: ['pending', 'approved', 'rejected'], // status must be one of these values
-      default: 'pending', // By default, a new vendor is pending approval
+      enum: ['pending', 'approved', 'rejected'],
+      default: 'pending',
     },
   },
   {
-    // Add createdAt and updatedAt fields automatically
     timestamps: true,
+    versionKey: false
   }
 );
 

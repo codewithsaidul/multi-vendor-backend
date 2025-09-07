@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { envVars } from "../config/env";
 import bcrypt from "bcrypt";
 import User from "../modules/user/user.modal";
@@ -18,22 +19,23 @@ export const seedUser = async () => {
       parseInt(envVars.BCRYPT_SALT_ROUND as string)
     );
 
-    const isVendorExit = await Vendor.findOne({ name: "Demo Vendor Shop" });
-    let createdVendor;
+    let vendorDoc = await Vendor.findOne({ name: "Demo Vendor Shop" });
 
-    if (!isVendorExit) {
+
+    if (!vendorDoc) {
+      console.log("Demo vendor not found, creating new one...");
       const demoVendor = new Vendor({
         name: "Demo Vendor Shop",
         status: "approved",
       });
-      createdVendor = await demoVendor.save();
+      vendorDoc = await demoVendor.save();
     }
 
     const userInfo: IUser = {
       email: envVars.USER_EMAIL,
       password: hashPassword,
-      role: UserRole.MANAGER,
-      scopeId: createdVendor?._id,
+      role: UserRole.USER,
+      scopeId: vendorDoc?._id,
     };
 
     await User.create(userInfo);
