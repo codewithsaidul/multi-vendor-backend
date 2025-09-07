@@ -6,6 +6,8 @@ import { ProductService } from "./products.service";
 import { sendResponse } from "../../utils/sendResponse";
 import { StatusCodes } from "http-status-codes";
 
+
+// Create a product
 const createProductInDB = catchAsync(
   async (req: TRequest, res: TResponse, next: TNext) => {
     const decodedToken = req.user as JwtPayload;
@@ -23,6 +25,24 @@ const createProductInDB = catchAsync(
   }
 );
 
+
+
+//  Get all products
+const getAllProducts = catchAsync(
+  async (req: TRequest, res: TResponse, next: TNext) => {
+    const query = req.query as Record<string, string>;
+    const user = req.user as JwtPayload;
+    const result = await ProductService.getAllProductsFromDB(user, query);
+
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: "Products retrieved successfully",
+      data: result,
+    });
+  }
+);
+
 export const ProductController = {
-  createProductInDB,
+  createProductInDB, getAllProducts
 };

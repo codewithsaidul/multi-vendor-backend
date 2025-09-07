@@ -10,6 +10,7 @@ import { ProductController } from "./prodct.controller";
 const route = Router();
 
 route.post("/", validateRequest(createProductValidationSchema), checkAuth(...Object.values(UserRole)), ProductController.createProductInDB)
+route.get("/", checkAuth(...Object.values(UserRole)), ProductController.getAllProducts)
 
 
 export const ProductRoutes = route;
