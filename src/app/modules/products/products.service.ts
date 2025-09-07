@@ -6,11 +6,24 @@ import { QueryBuilder } from "../../utils/queryBuilder";
 import { productSearchableFields } from "./product.constatns";
 import { AppError } from "../../errorHelper/AppError";
 import { StatusCodes } from "http-status-codes";
+import Vendor from "../vendor/verdor.modal";
 
 const createProductInDB = async (
   product: Partial<IProduct>,
   user: JwtPayload
 ) => {
+  const isVendorExist = await Vendor.findById(product.vendorId);
+  if (!isVendorExist) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Vendor not found");
+  }
+
+  if (isVendorExist.status !== "approved") {
+    throw new AppError(
+      StatusCodes.FORBIDDEN,
+      "Cannot add product for unapproved/rejected vendor"
+    );
+  }
+
   product.ownerId = user.userId;
 
   // If the creator is a manager or user, automatically set vendorId from their scope
@@ -61,8 +74,6 @@ const getAllProductsFromDB = async (
   return { data, meta };
 };
 
-
-
 const updateProduct = async (
   productId: string,
   updateData: Partial<IProduct>,
@@ -73,6 +84,17 @@ const updateProduct = async (
     throw new AppError(StatusCodes.NOT_FOUND, "Product not found");
   }
 
+  const isVendorExist = await Vendor.findById(isProductExist.vendorId);
+  if (!isVendorExist) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Vendor not found");
+  }
+
+  if (isVendorExist.status !== "approved") {
+    throw new AppError(
+      StatusCodes.FORBIDDEN,
+      "Cannot modify product of unapproved/rejected vendor"
+    );
+  }
 
   if (user.role !== UserRole.ADMIN) {
     if (user.role === UserRole.MANAGER) {
@@ -80,15 +102,15 @@ const updateProduct = async (
       if (isProductExist.vendorId.toString() !== user.scopeId) {
         throw new AppError(
           StatusCodes.FORBIDDEN,
-          'You are not authorized to update this product'
+          "You are not authorized to update this product"
         );
       }
-    } else if (user.role === 'user') {
+    } else if (user.role === "user") {
       // user can update only their own products
       if (isProductExist.ownerId.toString() !== user.id) {
         throw new AppError(
           StatusCodes.FORBIDDEN,
-          'You can only update your own products'
+          "You can only update your own products"
         );
       }
     }
@@ -103,12 +125,22 @@ const updateProduct = async (
   return updatedProduct;
 };
 
-
-
 const deleteProduct = async (productId: string, user: JwtPayload) => {
   const isProductExist = await Product.findById(productId);
   if (!isProductExist) {
     throw new AppError(StatusCodes.NOT_FOUND, "Product not found");
+  }
+
+    const isVendorExist = await Vendor.findById(isProductExist.vendorId);
+  if (!isVendorExist) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Vendor not found");
+  }
+
+  if (isVendorExist.status !== "approved") {
+    throw new AppError(
+      StatusCodes.FORBIDDEN,
+      "Cannot delete product of unapproved/rejected vendor"
+    );
   }
 
   if (user.role !== UserRole.ADMIN) {
@@ -117,15 +149,15 @@ const deleteProduct = async (productId: string, user: JwtPayload) => {
       if (isProductExist.vendorId.toString() !== user.scopeId) {
         throw new AppError(
           StatusCodes.FORBIDDEN,
-          'You are not authorized to delete this product'
+          "You are not authorized to delete this product"
         );
       }
-    } else if (user.role === 'user') {
+    } else if (user.role === "user") {
       // user can delete only their own products
       if (isProductExist.ownerId.toString() !== user.id) {
         throw new AppError(
           StatusCodes.FORBIDDEN,
-          'You can only delete your own products'
+          "You can only delete your own products"
         );
       }
     }
@@ -138,5 +170,5 @@ export const ProductService = {
   createProductInDB,
   getAllProductsFromDB,
   updateProduct,
-  deleteProduct
+  deleteProduct,
 };
