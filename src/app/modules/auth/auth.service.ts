@@ -27,11 +27,7 @@ const credentialsLogin = async (payload: Partial<IUser>) => {
     throw new AppError(StatusCodes.UNAUTHORIZED, "Incorrect password");
   }
 
-  return {
-      id: isUserExist._id,
-      role: isUserExist.role,
-      scopeId: isUserExist.scopeId
-  };
+  return isUserExist;
 };
 
 

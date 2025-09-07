@@ -20,7 +20,11 @@ const credentialsLogin = catchAsync(
       message: "User logged in successfully",
       data: {
         token: accessToken,
-        user: user,
+        user: {
+          _id: user._id,
+          role: user.role,
+          scopeId: user.scopeId
+        },
       },
     });
   }
