@@ -11,3 +11,12 @@ export const createVendorSchema = z.object({
     .enum(["pending", "approved", "rejected"])
     .optional()
 });
+
+
+
+export const updateVendorSchema = z.object({
+  name: z.string().trim().min(1).optional(),
+});
+export const updateVendorStatusSchema = z.object({
+  status: z.enum(["pending", "approved", "rejected"]),
+});
