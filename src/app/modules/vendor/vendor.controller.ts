@@ -1,3 +1,4 @@
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { StatusCodes } from "http-status-codes";
 import { sendResponse } from "../../utils/sendResponse";
@@ -22,7 +23,8 @@ const createNewVendor = catchAsync(
 
 const getAllVendor = catchAsync(
   async (req: TRequest, res: TResponse, next: TNext) => {
-    const vendor = await VendorServices.getAllVendor();
+    const query = req.query as Record<string, string>;
+    const vendor = await VendorServices.getAllVendor(query);
 
     sendResponse(res, {
       statusCode: StatusCodes.OK,
