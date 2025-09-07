@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 
 
 
@@ -9,4 +10,12 @@ export interface IVendor {
   status: VendorStatus;
   createdAt?: Date;
   updatedAt?: Date;
+}
+
+
+export interface IVendorProduct {
+  title: string;
+  price: number;
+  stock: number;
+  vendorId: Types.ObjectId
 }
