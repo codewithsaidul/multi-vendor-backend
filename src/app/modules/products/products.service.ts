@@ -4,6 +4,8 @@ import { UserRole } from "../user/user.interface";
 import Product from "./product.modal";
 import { QueryBuilder } from "../../utils/queryBuilder";
 import { productSearchableFields } from "./product.constatns";
+import { AppError } from "../../errorHelper/AppError";
+import { StatusCodes } from "http-status-codes";
 
 const createProductInDB = async (
   product: Partial<IProduct>,
@@ -25,16 +27,18 @@ const createProductInDB = async (
   return result;
 };
 
-const getAllProductsFromDB = async (user: JwtPayload, query: Record<string, string>) => {
+const getAllProductsFromDB = async (
+  user: JwtPayload,
+  query: Record<string, string>
+) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const baseFilter: any = {};
 
   if (user.role === "manager") {
     baseFilter.vendorId = user.scopeId;
   }
-  // 'admin' এবং 'user'-এর জন্য baseFilter খালি থাকবে, তাই তারা সব প্রোডাক্ট দেখবে
 
-  // ধাপ ২: প্রাথমিক ফিল্টার দিয়ে Mongoose কোয়েরি শুরু করুন
+  // Starting Mongoose Query with primary filter
   const productQuery = Product.find(baseFilter)
     .populate("vendorId")
     .populate("ownerId", "-password");
@@ -57,7 +61,82 @@ const getAllProductsFromDB = async (user: JwtPayload, query: Record<string, stri
   return { data, meta };
 };
 
+
+
+const updateProduct = async (
+  productId: string,
+  updateData: Partial<IProduct>,
+  user: JwtPayload
+) => {
+  const isProductExist = await Product.findById(productId);
+  if (!isProductExist) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Product not found");
+  }
+
+
+  if (user.role !== UserRole.ADMIN) {
+    if (user.role === UserRole.MANAGER) {
+      // manager can update only products of their vendor
+      if (isProductExist.vendorId.toString() !== user.scopeId) {
+        throw new AppError(
+          StatusCodes.FORBIDDEN,
+          'You are not authorized to update this product'
+        );
+      }
+    } else if (user.role === 'user') {
+      // user can update only their own products
+      if (isProductExist.ownerId.toString() !== user.id) {
+        throw new AppError(
+          StatusCodes.FORBIDDEN,
+          'You can only update your own products'
+        );
+      }
+    }
+  }
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    productId,
+    updateData,
+    { new: true, runValidators: true }
+  );
+
+  return updatedProduct;
+};
+
+
+
+const deleteProduct = async (productId: string, user: JwtPayload) => {
+  const isProductExist = await Product.findById(productId);
+  if (!isProductExist) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Product not found");
+  }
+
+  if (user.role !== UserRole.ADMIN) {
+    if (user.role === UserRole.MANAGER) {
+      // manager can delete only products of their vendor
+      if (isProductExist.vendorId.toString() !== user.scopeId) {
+        throw new AppError(
+          StatusCodes.FORBIDDEN,
+          'You are not authorized to delete this product'
+        );
+      }
+    } else if (user.role === 'user') {
+      // user can delete only their own products
+      if (isProductExist.ownerId.toString() !== user.id) {
+        throw new AppError(
+          StatusCodes.FORBIDDEN,
+          'You can only delete your own products'
+        );
+      }
+    }
+  }
+
+  await Product.findByIdAndDelete(productId);
+};
+
 export const ProductService = {
   createProductInDB,
   getAllProductsFromDB,
+  updateProduct,
+  deleteProduct
 };

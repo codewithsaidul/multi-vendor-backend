@@ -43,6 +43,41 @@ const getAllProducts = catchAsync(
   }
 );
 
+
+// Update a product
+const updateProduct = catchAsync(
+  async (req: TRequest, res: TResponse, next: TNext) => {
+    const { productId } = req.params;
+    const updateData = req.body;
+    const user = req.user as JwtPayload;
+    const result = await ProductService.updateProduct(productId, updateData, user);
+
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: "Product updated successfully",
+      data: result,
+    });
+  }
+);
+
+
+// Delete a product
+const deleteProduct = catchAsync(
+  async (req: TRequest, res: TResponse, next: TNext) => {
+    const { productId } = req.params;
+    const user = req.user as JwtPayload;
+    await ProductService.deleteProduct(productId, user);
+
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: "Product deleted successfully",
+      data: null,
+    });
+  }
+);
+
 export const ProductController = {
-  createProductInDB, getAllProducts
+  createProductInDB, getAllProducts, updateProduct, deleteProduct
 };
