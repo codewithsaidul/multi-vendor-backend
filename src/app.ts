@@ -2,6 +2,7 @@ import cors from "cors";
 import express, { type Application, type Request, type Response } from "express";
 import cookieParser from "cookie-parser"
 import { router } from "./app/routes/index.route";
+import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 
 
 const app: Application = express();
@@ -20,5 +21,7 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).json("Welcome to Multi Vendor Backend");
 });
 
+
+app.use(globalErrorHandler)
 
 export default app;
