@@ -3,6 +3,7 @@ import express, { type Application, type Request, type Response } from "express"
 import cookieParser from "cookie-parser"
 import { router } from "./app/routes/index.route";
 import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
+import { notFoundRoute } from "./app/middleware/notFoundRoute";
 
 
 const app: Application = express();
@@ -23,5 +24,7 @@ app.get("/", (req: Request, res: Response) => {
 
 
 app.use(globalErrorHandler)
+
+app.use(notFoundRoute)
 
 export default app;
