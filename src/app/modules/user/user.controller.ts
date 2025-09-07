@@ -44,6 +44,22 @@ const assignToManager = catchAsync(async (req: TRequest, res: TResponse, next: T
 
 
 
+const getAllUsers = catchAsync(async (req: TRequest, res: TResponse, next: TNext) => {
+    const query = req.query as Record<string, string>;
+    const users = await UserService.getAllUsers(query);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: "Users retrieved successfully.",
+        data: users
+    })
+});
+
+
+
+
+
 export const UserController = {
-   createNewUser, assignToManager
+   createNewUser, assignToManager, getAllUsers
 }   

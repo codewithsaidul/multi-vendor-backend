@@ -3,6 +3,8 @@ import { IUser, UserRole } from "./user.interface";
 import User from "./user.modal";
 import { AppError } from "../../errorHelper/AppError";
 import { StatusCodes } from "http-status-codes";
+import { QueryBuilder } from "../../utils/queryBuilder";
+import { userSearchableFields } from "./user.constants";
 
 const createNewUser = async (
   payload: Partial<IUser>,
@@ -58,6 +60,28 @@ const assignToManager = async (
   return updatedUser;
 };
 
+
+const getAllUsers = async (query: Record<string, string>) => {
+
+  //   Create a QueryBuilder instance with the User model and the query
+  const queryBuilder = new QueryBuilder(User.find(), query);
+
+  //   Apply filters, search, sort, fields, and pagination using the QueryBuilder methods
+  const users = queryBuilder
+    .search(userSearchableFields)
+    .sort()
+    .fields()
+    .paginate();
+
+  //  Execute the query and get the data and metadata
+  const [data, meta] = await Promise.all([
+    users.build().select("-password"),
+    queryBuilder.getMeta(),
+  ]);
+
+  return { data, meta };
+}
+
 export const UserService = {
- createNewUser, assignToManager,
+ createNewUser, assignToManager, getAllUsers
 };

@@ -59,7 +59,7 @@ const getAllProductsFromDB = async (
   const queryBuilder = new QueryBuilder(productQuery, query);
 
   //   Apply filters, search, sort, fields, and pagination using the QueryBuilder methods
-  const users = queryBuilder
+  const products = queryBuilder
     .search(productSearchableFields)
     .sort()
     .fields()
@@ -67,7 +67,7 @@ const getAllProductsFromDB = async (
 
   //  Execute the query and get the data and metadata
   const [data, meta] = await Promise.all([
-    users.build().select("-password -auths"),
+    products.build().select("-password"),
     queryBuilder.getMeta(),
   ]);
 

@@ -11,6 +11,7 @@ const route = Router();
 
 route.post("/create-user", validateRequest(createUserSchema), checkAuth(UserRole.ADMIN), UserController.createNewUser);
 route.post("/:userId/assign-manager", validateRequest(assignManagerSchema), checkAuth(UserRole.ADMIN), UserController.assignToManager);
+route.get("/", checkAuth(UserRole.ADMIN), UserController.getAllUsers);
 
 
 
