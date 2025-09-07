@@ -12,7 +12,7 @@ export const setAuthCookie = (res: TResponse, tokenInfo: AuthToken) => {
     res.cookie("accessToken", tokenInfo.accessToken, {
       httpOnly: true, // Safer from XSS
       secure: envVars.NODE_ENV === 'production', // O
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 3 * 24 * 60 * 60 * 1000 // 3 days expire date
     });
   }
@@ -22,7 +22,7 @@ export const setAuthCookie = (res: TResponse, tokenInfo: AuthToken) => {
     res.cookie("refreshToken", tokenInfo.refreshToken, {
       httpOnly: true,  // Safer from XSS
       secure: envVars.NODE_ENV === 'production',
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days expire date
     });
   }
