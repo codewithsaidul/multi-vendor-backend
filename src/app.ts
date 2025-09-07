@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import { router } from "./app/routes/index.route";
 import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 import { notFoundRoute } from "./app/middleware/notFoundRoute";
+import { envVars } from "./app/config/env";
 
 
 const app: Application = express();
@@ -12,7 +13,10 @@ const app: Application = express();
 app.set("trust proxy", 1)
 app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: envVars.FRONTEND_URL,
+  credentials: true
+}));
 
 
 

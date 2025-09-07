@@ -20,6 +20,8 @@ interface ENVCONFIG {
   MANAGER_PASSWORD: string;
   USER_EMAIL: string;
   USER_PASSWORD: string;
+
+  FRONTEND_URL: string;
 }
 
 const loadEnvVariable = (): ENVCONFIG => {
@@ -40,6 +42,8 @@ const loadEnvVariable = (): ENVCONFIG => {
     "MANAGER_PASSWORD",
     "USER_EMAIL",
     "USER_PASSWORD",
+
+    "FRONTEND_URL",
   ];
 
   requiredEnvVariables.forEach((key) => {
@@ -68,6 +72,8 @@ const loadEnvVariable = (): ENVCONFIG => {
     MANAGER_PASSWORD: process.env.MANAGER_PASSWORD as string,
     USER_EMAIL: process.env.USER_EMAIL as string,
     USER_PASSWORD: process.env.USER_PASSWORD as string,
+
+    FRONTEND_URL: process.env.FRONTEND_URL as string,
   };
 };
 
