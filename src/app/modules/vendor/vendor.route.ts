@@ -11,6 +11,7 @@ const route = Router();
 
 route.post("/", validateRequest(createVendorSchema), checkAuth(UserRole.ADMIN), VendorController.createNewVendor);
 route.get("/", checkAuth(UserRole.ADMIN), VendorController.getAllVendor);
+route.patch("/:vendorId", checkAuth(UserRole.MANAGER), VendorController.updateVendorInfo);
 route.patch("/:vendorId/statusUpdate", checkAuth(UserRole.ADMIN), VendorController.updateVendorStatus);
 
 

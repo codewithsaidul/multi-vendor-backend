@@ -53,8 +53,39 @@ const updateVendorStatus = async (
   return updateVendorStatus;
 };
 
+
+const updateVendorInfo = async (vendorId: string, manager: JwtPayload, payload: Partial<IVendor>) => {
+  if (manager.role !== UserRole.MANAGER) {
+    throw new AppError(StatusCodes.FORBIDDEN, "You are not authorized to update vendor");
+  }
+
+  const isVendorExist = await Vendor.findById(vendorId);
+  if (!isVendorExist) {
+    throw new AppError(StatusCodes.NOT_FOUND, "Vendor not found");
+  }
+
+  if (isVendorExist._id.toString() !== manager.scopeId) {
+    throw new AppError(StatusCodes.FORBIDDEN, "You can only update your own vendor");
+  }
+
+  if (isVendorExist.status !== "approved") {
+    throw new AppError(StatusCodes.FORBIDDEN, "Cannot modify unapproved/rejected vendor");
+  }
+
+  if (payload.status) {
+    throw new AppError(StatusCodes.FORBIDDEN, "You are not authorized to update vendor status");
+  }
+
+  const updateVendor = await Vendor.findByIdAndUpdate(vendorId, payload, {
+    new: true,
+    runValidators: true,
+  });
+  return updateVendor;
+}
+
 export const VendorServices = {
   getAllVendor,
   createNewVendor,
   updateVendorStatus,
+  updateVendorInfo,
 };

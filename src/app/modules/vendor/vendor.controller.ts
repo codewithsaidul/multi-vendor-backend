@@ -51,6 +51,23 @@ const updateVendorStatus = catchAsync(
   }
 );
 
+
+
+const updateVendorInfo = catchAsync(
+  async (req: TRequest, res: TResponse, next: TNext) => {
+    const { vendorId } = req.params;
+    const user = req.user as JwtPayload;
+    const vendor = await VendorServices.updateVendorInfo(vendorId, user, req.body);
+
+    sendResponse(res, {
+      statusCode: StatusCodes.OK,
+      success: true,
+      message: "Vendor Info updated successfully",
+      data: vendor,
+    });
+  }
+);
+
 export const VendorController = {
-  getAllVendor, createNewVendor, updateVendorStatus
+  getAllVendor, createNewVendor, updateVendorStatus, updateVendorInfo
 };

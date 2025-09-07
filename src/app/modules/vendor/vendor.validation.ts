@@ -14,9 +14,11 @@ export const createVendorSchema = z.object({
 
 
 
-export const updateVendorSchema = z.object({
-  name: z.string().trim().min(1).optional(),
+export const updateVendorInfoSchema = z.object({
+  name: z.string("name must be string").nonempty("name is required").trim().min(3, { message: "name must be at least 3 characters long" }),
 });
+
+
 export const updateVendorStatusSchema = z.object({
   status: z.enum(["pending", "approved", "rejected"]),
 });
