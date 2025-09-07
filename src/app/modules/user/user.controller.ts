@@ -10,6 +10,23 @@ import { StatusCodes } from "http-status-codes";
 
 
 
+
+
+const createNewUser = catchAsync(async (req: TRequest, res: TResponse, next: TNext) => {
+    const payload = req.body;
+    const decodedToken = req.user as JwtPayload;
+
+    const user = await UserService.createNewUser(payload, decodedToken);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.CREATED,
+        success: true,
+        message: "User created successfully.",
+        data: user
+    })
+});
+
+
 const assignToManager = catchAsync(async (req: TRequest, res: TResponse, next: TNext) => {
     const { scopeId } = req.body;
     const { userId } = req.params;
@@ -28,5 +45,5 @@ const assignToManager = catchAsync(async (req: TRequest, res: TResponse, next: T
 
 
 export const UserController = {
-    assignToManager
+   createNewUser, assignToManager
 }   
