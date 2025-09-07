@@ -1,0 +1,565 @@
+{
+	"info": {
+		"_postman_id": "780a4132-a2a7-4f97-aa34-99752eae0f84",
+		"name": "Job Assesment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37891396"
+	},
+	"item": [
+		{
+			"name": "Multi Vendor Job Assedment",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@demo.com\",\n    \"password\": \"Admin@123\"\n}\n\n// {\n//     \"email\": \"manager@demo.com\",\n//     \"password\": \"Manager@123\"\n// }\n\n// {\n//     \"email\": \"user@demo.com\",\n//     \"password\": \"User@123\"\n// }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/auth/login",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Vendor",
+					"item": [
+						{
+							"name": "Get All Vendor",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "// {\n//     \"email\": \"admin@demo.com\",\n//     \"password\": \"Admin@123\"\n// }\n\n// {\n//     \"email\": \"manager@demo.com\",\n//     \"password\": \"Manager@123\"\n// }\n\n{\n    \"email\": \"user@demo.com\",\n    \"password\": \"User@123\"\n}"
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/vendors",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"vendors"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "reject",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create New Vendor",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"The Tech Bazar\",\n    \"status\": \"pending\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/vendors",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"vendors"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Vendor Status Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"status\": \"rejected\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/vendors/68bd2cf99233af7a2420f84e/statusUpdate",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"vendors",
+										"68bd2cf99233af7a2420f84e",
+										"statusUpdate"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Vendor Info Update",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"description": "Admin",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTAiLCJlbWFpbCI6Im1hbmFnZXJAZGVtby5jb20iLCJyb2xlIjoibWFuYWdlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzU1MjMsImV4cCI6MTc1NzQ5NDcyM30.HHk4UF8vzcUoKhG90sgdTV2y1I6XnssaBB2_4UrIS3M",
+										"description": "Manager",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Alibaba 40 Chor\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/vendors/68bd2cf99233af7a2420f84e",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"vendors",
+										"68bd2cf99233af7a2420f84e"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Add Product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTQiLCJlbWFpbCI6InVzZXJAZGVtby5jb20iLCJyb2xlIjoidXNlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzg5MTUsImV4cCI6MTc1NzQ5ODExNX0.vkDXqu1L-G1GpZN4hqpaOJ6NlH062n-SfHalwkC_UlU",
+										"description": "User",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"title\": \"New Gaming Laptop\",\n    \"price\": 20000,\n    \"stock\": 50,\n    \"vendorId\": \"68bd2cf99233af7a2420f84e\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/products",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Product",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"description": "Admin",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTAiLCJlbWFpbCI6Im1hbmFnZXJAZGVtby5jb20iLCJyb2xlIjoibWFuYWdlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzU1MjMsImV4cCI6MTc1NzQ5NDcyM30.HHk4UF8vzcUoKhG90sgdTV2y1I6XnssaBB2_4UrIS3M",
+										"description": "Manager",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTQiLCJlbWFpbCI6InVzZXJAZGVtby5jb20iLCJyb2xlIjoidXNlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzg5MTUsImV4cCI6MTc1NzQ5ODExNX0.vkDXqu1L-G1GpZN4hqpaOJ6NlH062n-SfHalwkC_UlU",
+										"description": "User",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 2500,\n    \"stock\": 40\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/products/68bd40af4436b3d47a290981",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"68bd40af4436b3d47a290981"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Product",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"description": "Admin",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTAiLCJlbWFpbCI6Im1hbmFnZXJAZGVtby5jb20iLCJyb2xlIjoibWFuYWdlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzU1MjMsImV4cCI6MTc1NzQ5NDcyM30.HHk4UF8vzcUoKhG90sgdTV2y1I6XnssaBB2_4UrIS3M",
+										"description": "Manager",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTQiLCJlbWFpbCI6InVzZXJAZGVtby5jb20iLCJyb2xlIjoidXNlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzg5MTUsImV4cCI6MTc1NzQ5ODExNX0.vkDXqu1L-G1GpZN4hqpaOJ6NlH062n-SfHalwkC_UlU",
+										"description": "User",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/products/68bd45a20fe04a70e139401f",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"68bd45a20fe04a70e139401f"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Products",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"description": "Admin",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTAiLCJlbWFpbCI6Im1hbmFnZXJAZGVtby5jb20iLCJyb2xlIjoibWFuYWdlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzU1MjMsImV4cCI6MTc1NzQ5NDcyM30.HHk4UF8vzcUoKhG90sgdTV2y1I6XnssaBB2_4UrIS3M",
+										"description": "Manager",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NTQiLCJlbWFpbCI6InVzZXJAZGVtby5jb20iLCJyb2xlIjoidXNlciIsInNjb3BlSWQiOiI2OGJkMmNmOTkyMzNhZjdhMjQyMGY4NGUiLCJpYXQiOjE3NTcyMzg5MTUsImV4cCI6MTc1NzQ5ODExNX0.vkDXqu1L-G1GpZN4hqpaOJ6NlH062n-SfHalwkC_UlU",
+										"description": "User",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/products",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "mouse",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Assign to Manager",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"scopeId\": \"68bd49a6f732478055e3c2b9\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/users/68bd2cf99233af7a2420f854/assign-manager",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"68bd2cf99233af7a2420f854",
+										"assign-manager"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create User",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"demo@demo.com\",\n    \"password\": \"123456\",\n    \"role\": \"user\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/users/create-user",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"create-user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Users",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OGJjOTkyOGFiY2Y3YmI4MDczNDUzNDgiLCJlbWFpbCI6ImFkbWluQGRlbW8uY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzU3MjI4MjAyLCJleHAiOjE3NTc0ODc0MDJ9.aXrneLuDxu3hQzupoUX-bFFruxQAvh-uKoNCEB6NQt0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"demo@demo.com\",\n    \"password\": \"123456\",\n    \"role\": \"user\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Multi Vebdor}}/api/v1/users",
+									"host": [
+										"{{Multi Vebdor}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "q",
+											"value": "user",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

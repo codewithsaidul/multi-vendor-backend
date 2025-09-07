@@ -13,6 +13,7 @@ export const checkAuth =
     // get the access token from the request headers
     const accessToken = req.headers.authorization || req.cookies.accessToken;
 
+    
     // if the access token is not present, throw an error
     if (!accessToken) {
       throw new AppError(StatusCodes.UNAUTHORIZED, "Access token is missing");

@@ -58,8 +58,22 @@ const getAllUsers = catchAsync(async (req: TRequest, res: TResponse, next: TNext
 
 
 
+const getUserProfile = catchAsync(async (req: TRequest, res: TResponse, next: TNext) => {
+    const decodedToken = req.user as JwtPayload
+    const user = await UserService.getUserProfile(decodedToken?.userId);
+
+    sendResponse(res, {
+        statusCode: StatusCodes.OK,
+        success: true,
+        message: "User profile retrieved successfully.",
+        data: user
+    })
+});
+
+
+
 
 
 export const UserController = {
-   createNewUser, assignToManager, getAllUsers
+   createNewUser, assignToManager, getAllUsers, getUserProfile
 }   

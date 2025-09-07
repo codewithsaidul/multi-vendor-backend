@@ -82,6 +82,15 @@ const getAllUsers = async (query: Record<string, string>) => {
   return { data, meta };
 }
 
+
+const getUserProfile = async (userId: string) => {
+  const user = await User.findById(userId).select("-password");
+  if (!user) {
+    throw new AppError(StatusCodes.NOT_FOUND, "User not found.");
+  }
+  return user;
+}
+
 export const UserService = {
- createNewUser, assignToManager, getAllUsers
+ createNewUser, assignToManager, getAllUsers, getUserProfile
 };

@@ -5,6 +5,7 @@ import { catchAsync } from "../../utils/catchAsync";
 import { AuthServices } from "./auth.service";
 import { sendResponse } from "../../utils/sendResponse";
 import { createUserToken } from "../../utils/userToken";
+import { setAuthCookie } from "../../utils/setCookie";
 
 // This function handles user login using credentials (email and password).
 const credentialsLogin = catchAsync(
@@ -12,7 +13,9 @@ const credentialsLogin = catchAsync(
     const payload = req.body;
     const user = await AuthServices.credentialsLogin(payload);
 
-    const { accessToken } = createUserToken(user)
+    const { accessToken, refreshToken } = createUserToken(user)
+
+    setAuthCookie(res, { accessToken, refreshToken } )
 
     sendResponse(res, {
       statusCode: StatusCodes.OK,
